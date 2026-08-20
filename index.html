@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Usuários</title>
+</head>
+
+<body>
+
+    <h1>Usuários cadastrados</h1>
+
+    {% for usuario in usuarios %}
+
+        <div>
+            <h3>{{ usuario.nome }}</h3>
+
+            <p>
+                E-mail: {{ usuario.email }}
+            </p>
+        </div>
+
+        <hr>
+
+    {% endfor %}
+
+    <a href="/">
+        Voltar
+    </a>
+
+</body>
+
+</html>
