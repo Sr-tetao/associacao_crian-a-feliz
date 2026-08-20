@@ -1,5 +1,7 @@
+```html
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,161 +10,284 @@
 
     <style>
         * {
-            box-sizing: border-box;
             margin: 0;
             padding: 0;
+            box-sizing: border-box;
         }
 
         body {
-            font-family: Arial, sans-serif;
             min-height: 100vh;
+            font-family: Arial, Helvetica, sans-serif;
+            background: #fff8e7;
+
             display: flex;
-            justify-content: center;
-            align-items: center;
-            background: linear-gradient(135deg, #4facfe, #00f2fe);
+            flex-direction: column;
         }
 
-        .login-container {
-            width: 90%;
-            max-width: 420px;
-            background: white;
-            padding: 35px;
-            border-radius: 20px;
-            box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+        header {
+            background: #ffcc4d;
+            padding: 25px 20px;
             text-align: center;
         }
 
-        .logo {
-            width: 110px;
-            height: 110px;
-            object-fit: contain;
-            margin-bottom: 15px;
+        header h1 {
+            color: white;
+            font-size: 34px;
         }
 
-        h1 {
-            color: #1677c8;
-            margin-bottom: 8px;
+        header p {
+            margin-top: 8px;
+            color: #5a4300;
+            font-size: 17px;
         }
 
-        .subtitulo {
-            color: #666;
-            margin-bottom: 25px;
+        .login-area {
+            flex: 1;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            padding: 40px 20px;
         }
 
-        label {
-            display: block;
-            text-align: left;
-            margin-bottom: 7px;
-            font-weight: bold;
-            color: #333;
-        }
-
-        input {
+        .login-card {
             width: 100%;
-            padding: 13px;
-            margin-bottom: 18px;
-            border: 1px solid #ccc;
-            border-radius: 10px;
-            font-size: 16px;
+            max-width: 420px;
+
+            background: white;
+            padding: 35px;
+
+            border-radius: 20px;
+
+            box-shadow:
+                0 8px 25px rgba(0, 0, 0, 0.12);
         }
 
-        input:focus {
-            outline: none;
-            border-color: #1677c8;
+        .login-card h2 {
+            text-align: center;
+            color: #ff8c42;
+            margin-bottom: 10px;
+            font-size: 29px;
         }
 
-        button {
+        .login-card .descricao {
+            text-align: center;
+            color: #666;
+            margin-bottom: 30px;
+        }
+
+        .campo {
+            margin-bottom: 20px;
+        }
+
+        .campo label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #444;
+        }
+
+        .campo input {
             width: 100%;
             padding: 14px;
+
+            border: 2px solid #eee;
+            border-radius: 10px;
+
+            font-size: 16px;
+            outline: none;
+        }
+
+        .campo input:focus {
+            border-color: #ffcc4d;
+        }
+
+        .botao {
+            width: 100%;
+
+            padding: 14px;
+
             border: none;
             border-radius: 10px;
-            background: #1677c8;
+
+            background: #ff8c42;
             color: white;
+
             font-size: 17px;
             font-weight: bold;
+
             cursor: pointer;
         }
 
-        button:hover {
-            background: #0d5fa8;
+        .botao:hover {
+            background: #f47721;
         }
 
-        .voltar {
-            display: inline-block;
-            margin-top: 20px;
-            text-decoration: none;
-            color: #1677c8;
+        .mensagens {
+            margin-bottom: 20px;
         }
 
         .mensagem {
-            padding: 10px;
-            margin-bottom: 15px;
+            padding: 12px;
             border-radius: 8px;
-            background: #ffe0e0;
-            color: #b00000;
+            margin-bottom: 8px;
+            text-align: center;
+        }
+
+        .erro {
+            background: #ffe0dc;
+            color: #b42318;
+        }
+
+        .sucesso {
+            background: #dff7e3;
+            color: #18753c;
+        }
+
+        .voltar {
+            display: block;
+            text-align: center;
+
+            margin-top: 20px;
+
+            color: #3498db;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .voltar:hover {
+            text-decoration: underline;
+        }
+
+        footer {
+            background: #ffcc4d;
+            padding: 20px;
+            text-align: center;
+            color: #5a4300;
+        }
+
+        @media (max-width: 500px) {
+
+            header h1 {
+                font-size: 27px;
+            }
+
+            .login-card {
+                padding: 25px;
+            }
+
+            .login-card h2 {
+                font-size: 25px;
+            }
         }
     </style>
 </head>
 
 <body>
 
-    <div class="login-container">
+    <header>
+        <h1>🌈 Associação Criança Feliz</h1>
+        <p>Um futuro melhor começa aqui 💛</p>
+    </header>
 
-        <img
-            src="{{ url_for('static', filename='logo.png') }}"
-            class="logo"
-            alt="Associação Criança Feliz"
-        >
 
-        <h1>Área Administrativa</h1>
+    <main class="login-area">
 
-        <p class="subtitulo">
-            Associação Criança Feliz
-        </p>
+        <div class="login-card">
 
-        {% with mensagens = get_flashed_messages(with_categories=true) %}
-            {% if mensagens %}
-                {% for categoria, mensagem in mensagens %}
-                    <div class="mensagem">
-                        {{ mensagem }}
+            <h2>🔐 Entrar</h2>
+
+            <p class="descricao">
+                Entre na sua conta
+            </p>
+
+
+            <!-- Mensagens do Flask -->
+
+            {% with messages = get_flashed_messages(with_categories=true) %}
+
+                {% if messages %}
+
+                    <div class="mensagens">
+
+                        {% for categoria, mensagem in messages %}
+
+                            <div class="mensagem {{ categoria }}">
+                                {{ mensagem }}
+                            </div>
+
+                        {% endfor %}
+
                     </div>
-                {% endfor %}
-            {% endif %}
-        {% endwith %}
 
-        <form method="POST" action="{{ url_for('login') }}">
+                {% endif %}
 
-            <label for="usuario">Usuário</label>
+            {% endwith %}
 
-            <input
-                type="text"
-                id="usuario"
-                name="usuario"
-                placeholder="Digite o usuário"
-                required
-            >
 
-            <label for="senha">Senha</label>
+            <!-- Formulário de login -->
 
-            <input
-                type="password"
-                id="senha"
-                name="senha"
-                placeholder="Digite a senha"
-                required
-            >
+            <form method="POST" action="{{ url_for('login') }}">
 
-            <button type="submit">
-                Entrar
-            </button>
+                <div class="campo">
 
-        </form>
+                    <label for="usuario">
+                        Usuário
+                    </label>
 
-        <a href="{{ url_for('inicio') }}" class="voltar">
-            ← Voltar para o início
-        </a>
+                    <input
+                        type="text"
+                        id="usuario"
+                        name="usuario"
+                        placeholder="Digite seu usuário"
+                        required
+                        autocomplete="username"
+                    >
 
-    </div>
+                </div>
+
+
+                <div class="campo">
+
+                    <label for="senha">
+                        Senha
+                    </label>
+
+                    <input
+                        type="password"
+                        id="senha"
+                        name="senha"
+                        placeholder="Digite sua senha"
+                        required
+                        autocomplete="current-password"
+                    >
+
+                </div>
+
+
+                <button type="submit" class="botao">
+                    Entrar
+                </button>
+
+            </form>
+
+
+            <a href="{{ url_for('inicio') }}" class="voltar">
+                ← Voltar para o início
+            </a>
+
+        </div>
+
+    </main>
+
+
+    <footer>
+        <p>🌈 Associação Criança Feliz</p>
+        <p>© 2026</p>
+    </footer>
 
 </body>
+
 </html>
+```
