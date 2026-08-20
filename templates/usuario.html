@@ -1,1 +1,227 @@
+```html
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Minha Conta - Associação Criança Feliz</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #fff8e7;
+            color: #333;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        header {
+            background: #ffcc4d;
+            padding: 25px 20px;
+            text-align: center;
+        }
+
+        header h1 {
+            color: white;
+            font-size: 32px;
+        }
+
+        header p {
+            color: #5a4300;
+            margin-top: 8px;
+        }
+
+        main {
+            flex: 1;
+            width: 90%;
+            max-width: 900px;
+            margin: 40px auto;
+        }
+
+        .boas-vindas {
+            background: white;
+            padding: 35px;
+            border-radius: 20px;
+            text-align: center;
+            box-shadow: 0 5px 18px rgba(0, 0, 0, 0.10);
+            margin-bottom: 25px;
+        }
+
+        .boas-vindas h2 {
+            color: #ff8c42;
+            font-size: 30px;
+            margin-bottom: 15px;
+        }
+
+        .boas-vindas p {
+            font-size: 18px;
+            line-height: 1.6;
+        }
+
+        .dados {
+            background: white;
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 5px 18px rgba(0, 0, 0, 0.10);
+        }
+
+        .dados h3 {
+            color: #3498db;
+            margin-bottom: 20px;
+            font-size: 24px;
+        }
+
+        .informacao {
+            padding: 15px;
+            margin-bottom: 12px;
+            background: #f7f7f7;
+            border-radius: 10px;
+        }
+
+        .informacao strong {
+            color: #555;
+        }
+
+        .botoes {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin-top: 30px;
+        }
+
+        .botao {
+            display: inline-block;
+            padding: 13px 25px;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .inicio {
+            background: #3498db;
+            color: white;
+        }
+
+        .sair {
+            background: #e74c3c;
+            color: white;
+        }
+
+        .inicio:hover {
+            background: #2980b9;
+        }
+
+        .sair:hover {
+            background: #c0392b;
+        }
+
+        footer {
+            background: #ffcc4d;
+            padding: 25px;
+            text-align: center;
+            color: #5a4300;
+        }
+
+        footer p {
+            margin: 5px;
+        }
+
+        @media (max-width: 600px) {
+
+            header h1 {
+                font-size: 27px;
+            }
+
+            main {
+                width: 95%;
+            }
+
+            .boas-vindas,
+            .dados {
+                padding: 25px;
+            }
+
+            .boas-vindas h2 {
+                font-size: 25px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <h1>🌈 Associação Criança Feliz</h1>
+        <p>Área do usuário</p>
+    </header>
+
+
+    <main>
+
+        <section class="boas-vindas">
+
+            <h2>Olá, {{ nome }}! 👋</h2>
+
+            <p>
+                Seja bem-vindo à sua conta da
+                <strong>Associação Criança Feliz</strong>.
+            </p>
+
+        </section>
+
+
+        <section class="dados">
+
+            <h3>👤 Seus dados</h3>
+
+            <div class="informacao">
+                <strong>Nome:</strong>
+                {{ nome }}
+            </div>
+
+            <div class="informacao">
+                <strong>E-mail:</strong>
+                {{ email }}
+            </div>
+
+
+            <div class="botoes">
+
+                <a href="{{ url_for('inicio') }}" class="botao inicio">
+                    🏠 Página inicial
+                </a>
+
+                <a href="{{ url_for('logout') }}" class="botao sair">
+                    🚪 Sair
+                </a>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <footer>
+
+        <p>🌈 Associação Criança Feliz</p>
+
+        <p>© 2026</p>
+
+    </footer>
+
+</body>
+
+</html>
+```
 
