@@ -1,1 +1,200 @@
+```html
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Área Administrativa - Associação Criança Feliz</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #fff8e7;
+            color: #333;
+        }
+
+        header {
+            background: #ffcc4d;
+            padding: 25px;
+            text-align: center;
+        }
+
+        header h1 {
+            color: white;
+            font-size: 32px;
+        }
+
+        header p {
+            margin-top: 8px;
+            color: #5a4300;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1000px;
+            margin: 40px auto;
+        }
+
+        .topo {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+            margin-bottom: 25px;
+            flex-wrap: wrap;
+        }
+
+        .topo h2 {
+            color: #ff8c42;
+        }
+
+        .sair {
+            background: #e74c3c;
+            color: white;
+            text-decoration: none;
+            padding: 12px 22px;
+            border-radius: 8px;
+            font-weight: bold;
+        }
+
+        .sair:hover {
+            background: #c0392b;
+        }
+
+        .card {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 5px 18px rgba(0, 0, 0, 0.10);
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th {
+            background: #ffcc4d;
+            color: #5a4300;
+            padding: 15px;
+            text-align: left;
+        }
+
+        td {
+            padding: 14px 15px;
+            border-bottom: 1px solid #eee;
+        }
+
+        tr:hover {
+            background: #fff9e8;
+        }
+
+        .vazio {
+            text-align: center;
+            padding: 30px;
+            color: #777;
+        }
+
+        footer {
+            margin-top: 50px;
+            padding: 25px;
+            text-align: center;
+            background: #ffcc4d;
+            color: #5a4300;
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                width: 95%;
+            }
+
+            header h1 {
+                font-size: 25px;
+            }
+
+            th,
+            td {
+                padding: 10px;
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <h1>🌈 Associação Criança Feliz</h1>
+        <p>Painel Administrativo</p>
+    </header>
+
+    <main class="container">
+
+        <div class="topo">
+            <h2>👥 Usuários cadastrados</h2>
+
+            <a href="{{ url_for('logout') }}" class="sair">
+                Sair
+            </a>
+        </div>
+
+        <div class="card">
+
+            {% if usuarios %}
+
+                <table>
+
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Nome</th>
+                            <th>E-mail</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+
+                        {% for usuario in usuarios %}
+
+                            <tr>
+                                <td>{{ usuario["id"] }}</td>
+                                <td>{{ usuario["nome"] }}</td>
+                                <td>{{ usuario["email"] }}</td>
+                            </tr>
+
+                        {% endfor %}
+
+                    </tbody>
+
+                </table>
+
+            {% else %}
+
+                <div class="vazio">
+                    <h3>📭 Nenhum usuário cadastrado</h3>
+                    <p>Quando alguém realizar um cadastro, aparecerá aqui.</p>
+                </div>
+
+            {% endif %}
+
+        </div>
+
+    </main>
+
+    <footer>
+        <p>🌈 Associação Criança Feliz</p>
+        <p>Área administrativa</p>
+    </footer>
+
+</body>
+</html>
+```
 
