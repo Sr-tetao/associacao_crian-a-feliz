@@ -1,16 +1,10 @@
-```text
+```python
 from flask import Flask, render_template, request, redirect, url_for, flash, session
 import sqlite3
 from werkzeug.security import generate_password_hash, check_password_hash
 import os
 
-
 app = Flask(__name__)
-
-
-# ==============================
-# CONFIGURAÇÕES
-# ==============================
 
 BANCO = "usuarios.db"
 
@@ -26,16 +20,12 @@ app.secret_key = os.environ.get(
 
 def conectar_banco():
     conexao = sqlite3.connect(BANCO)
-
     conexao.row_factory = sqlite3.Row
-
     return conexao
 
 
 def criar_banco():
-
     with conectar_banco() as conexao:
-
         conexao.execute("""
             CREATE TABLE IF NOT EXISTS usuarios (
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -54,86 +44,40 @@ def criar_banco():
 
 @app.route("/")
 def inicio():
-
     return render_template("index.html")
 
 
 # ==============================
-# CADASTRO DE USUÁRIO
+# CADASTRO
 # ==============================
 
 @app.route("/cadastrar", methods=["POST"])
 def cadastrar():
 
-    nome = request.form.get(
-        "nome",
-        ""
-    ).strip()
-
-    email = request.form.get(
-        "email",
-        ""
-    ).strip().lower()
-
-    senha = request.form.get(
-        "senha",
-        ""
-    )
-
-    confirmar_senha = request.form.get(
-        "confirmar_senha",
-        ""
-    )
-
-
-    # Verificar campos
+    nome = request.form.get("nome", "").strip()
+    email = request.form.get("email", "").strip().lower()
+    senha = request.form.get("senha", "")
+    confirmar_senha = request.form.get("confirmar_senha", "")
 
     if not nome or not email or not senha:
-
-        flash(
-            "Preencha todos os campos.",
-            "erro"
-        )
-
-        return redirect(
-            url_for("inicio")
-        )
-
-
-    # Verificar tamanho da senha
+        flash("Preencha todos os campos.", "erro")
+        return redirect(url_for("inicio"))
 
     if len(senha) < 6:
-
         flash(
             "A senha precisa ter pelo menos 6 caracteres.",
             "erro"
         )
-
-        return redirect(
-            url_for("inicio")
-        )
-
-
-    # Confirmar senha
+        return redirect(url_for("inicio"))
 
     if confirmar_senha and senha != confirmar_senha:
-
         flash(
             "As senhas não são iguais.",
             "erro"
         )
+        return redirect(url_for("inicio"))
 
-        return redirect(
-            url_for("inicio")
-        )
-
-
-    # Criar hash da senha
-
-    senha_hash = generate_password_hash(
-        senha
-    )
-
+    senha_hash = generate_password_hash(senha)
 
     try:
 
@@ -145,15 +89,10 @@ def cadastrar():
                 (nome, email, senha)
                 VALUES (?, ?, ?)
                 """,
-                (
-                    nome,
-                    email,
-                    senha_hash
-                )
+                (nome, email, senha_hash)
             )
 
             conexao.commit()
-
 
         flash(
             f"Cadastro realizado com sucesso, {nome}! Agora você pode entrar.",
@@ -167,25 +106,19 @@ def cadastrar():
             "erro"
         )
 
-
-    return redirect(
-        url_for("inicio")
-    )
+    return redirect(url_for("inicio"))
 
 
 # ==============================
 # LOGIN
 # ==============================
 
-@app.route(
-    "/login",
-    methods=["GET", "POST"]
-)
+@app.route("/login", methods=["GET", "POST"])
 def login():
 
     if request.method == "POST":
 
-        email_ou_usuario = request.form.get(
+        usuario_login = request.form.get(
             "usuario",
             ""
         ).strip()
@@ -195,10 +128,9 @@ def login():
             ""
         )
 
-
-        # =================================
+        # ==============================
         # LOGIN DO ADMINISTRADOR
-        # =================================
+        # ==============================
 
         admin_usuario = os.environ.get(
             "ADMIN_USUARIO"
@@ -208,11 +140,10 @@ def login():
             "ADMIN_SENHA_HASH"
         )
 
-
         if (
             admin_usuario
             and admin_senha_hash
-            and email_ou_usuario == admin_usuario
+            and usuario_login == admin_usuario
         ):
 
             try:
@@ -226,23 +157,20 @@ def login():
 
                 senha_correta = False
 
-
             if senha_correta:
 
                 session.clear()
 
                 session["admin_logado"] = True
-
                 session["tipo_usuario"] = "admin"
 
                 return redirect(
                     url_for("admin")
                 )
 
-
-        # =================================
-        # LOGIN DO USUÁRIO NORMAL
-        # =================================
+        # ==============================
+        # LOGIN DO USUÁRIO
+        # ==============================
 
         with conectar_banco() as conexao:
 
@@ -252,11 +180,8 @@ def login():
                 FROM usuarios
                 WHERE email = ?
                 """,
-                (
-                    email_ou_usuario.lower(),
-                )
+                (usuario_login.lower(),)
             ).fetchone()
-
 
         if usuario:
 
@@ -271,44 +196,30 @@ def login():
 
                 senha_correta = False
 
-
             if senha_correta:
 
                 session.clear()
 
                 session["usuario_id"] = usuario["id"]
-
                 session["usuario_nome"] = usuario["nome"]
-
                 session["usuario_email"] = usuario["email"]
-
                 session["tipo_usuario"] = "usuario"
-
 
                 flash(
                     f"Bem-vindo, {usuario['nome']}!",
                     "sucesso"
                 )
 
-
                 return redirect(
                     url_for("usuario")
                 )
-
-
-        # =================================
-        # LOGIN INCORRETO
-        # =================================
 
         flash(
             "E-mail/usuário ou senha incorretos.",
             "erro"
         )
 
-
-    return render_template(
-        "login.html"
-    )
+    return render_template("login.html")
 
 
 # ==============================
@@ -329,7 +240,6 @@ def usuario():
             url_for("login")
         )
 
-
     nome = session.get(
         "usuario_nome"
     )
@@ -337,7 +247,6 @@ def usuario():
     email = session.get(
         "usuario_email"
     )
-
 
     return render_template(
         "usuario.html",
@@ -353,8 +262,6 @@ def usuario():
 @app.route("/admin")
 def admin():
 
-    # Somente administrador pode entrar
-
     if session.get("tipo_usuario") != "admin":
 
         flash(
@@ -366,7 +273,6 @@ def admin():
             url_for("login")
         )
 
-
     with conectar_banco() as conexao:
 
         usuarios = conexao.execute(
@@ -376,7 +282,6 @@ def admin():
             ORDER BY id DESC
             """
         ).fetchall()
-
 
     return render_template(
         "admin.html",
@@ -393,12 +298,10 @@ def logout():
 
     session.clear()
 
-
     flash(
         "Você saiu da sua conta.",
         "sucesso"
     )
-
 
     return redirect(
         url_for("inicio")
@@ -413,7 +316,7 @@ criar_banco()
 
 
 # ==============================
-# INICIAR APLICAÇÃO
+# INICIAR FLASK
 # ==============================
 
 if __name__ == "__main__":
