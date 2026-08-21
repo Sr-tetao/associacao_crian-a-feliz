@@ -50,33 +50,41 @@ def inicio():
 # ==============================
 # CADASTRO
 # ==============================
-
-@app.route("/cadastrar", methods=["POST"])
+@app.route("/cadastrar", methods=["GET", "POST"])
 def cadastrar():
 
+    # Quando o usuário abre /cadastrar no navegador
+    if request.method == "GET":
+        return render_template("cadastro.html")
+
+    # Dados enviados pelo formulário
     nome = request.form.get("nome", "").strip()
     email = request.form.get("email", "").strip().lower()
     senha = request.form.get("senha", "")
     confirmar_senha = request.form.get("confirmar_senha", "")
 
+    # Verificar campos
     if not nome or not email or not senha:
         flash("Preencha todos os campos.", "erro")
-        return redirect(url_for("inicio"))
+        return redirect(url_for("cadastrar"))
 
+    # Verificar tamanho da senha
     if len(senha) < 6:
         flash(
             "A senha precisa ter pelo menos 6 caracteres.",
             "erro"
         )
-        return redirect(url_for("inicio"))
+        return redirect(url_for("cadastrar"))
 
-    if confirmar_senha and senha != confirmar_senha:
+    # Verificar confirmação da senha
+    if senha != confirmar_senha:
         flash(
             "As senhas não são iguais.",
             "erro"
         )
-        return redirect(url_for("inicio"))
+        return redirect(url_for("cadastrar"))
 
+    # Criar hash da senha
     senha_hash = generate_password_hash(senha)
 
     try:
@@ -95,9 +103,11 @@ def cadastrar():
             conexao.commit()
 
         flash(
-            f"Cadastro realizado com sucesso, {nome}! Agora você pode entrar.",
+            f"Cadastro realizado com sucesso, {nome}!",
             "sucesso"
         )
+
+        return redirect(url_for("login"))
 
     except sqlite3.IntegrityError:
 
@@ -106,9 +116,7 @@ def cadastrar():
             "erro"
         )
 
-    return redirect(url_for("inicio"))
-
-
+        return redirect(url_for("cadastrar"))
 # ==============================
 # LOGIN
 # ==============================
