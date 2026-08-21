@@ -1,0 +1,348 @@
+```html
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Criar conta - Associação Criança Feliz</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            font-family: Arial, Helvetica, sans-serif;
+            background: #fff8e7;
+            color: #333;
+
+            display: flex;
+            flex-direction: column;
+        }
+
+        header {
+            background: #ffcc4d;
+            padding: 25px 20px;
+            text-align: center;
+        }
+
+        header h1 {
+            color: white;
+            font-size: 34px;
+        }
+
+        header p {
+            margin-top: 8px;
+            color: #5a4300;
+            font-size: 17px;
+        }
+
+        .cadastro-area {
+            flex: 1;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            padding: 45px 20px;
+        }
+
+        .cadastro-card {
+            width: 100%;
+            max-width: 450px;
+
+            background: white;
+            padding: 35px;
+
+            border-radius: 20px;
+
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+        }
+
+        .cadastro-card h2 {
+            text-align: center;
+            color: #ff8c42;
+            font-size: 30px;
+            margin-bottom: 10px;
+        }
+
+        .descricao {
+            text-align: center;
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 17px;
+        }
+
+        .mensagens {
+            margin-bottom: 20px;
+        }
+
+        .mensagem {
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 8px;
+            text-align: center;
+        }
+
+        .erro {
+            background: #ffe0dc;
+            color: #b42318;
+        }
+
+        .sucesso {
+            background: #dff7e3;
+            color: #18753c;
+        }
+
+        .campo {
+            margin-bottom: 20px;
+        }
+
+        .campo label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #444;
+        }
+
+        .campo input {
+            width: 100%;
+            padding: 14px;
+
+            border: 2px solid #e5e5e5;
+            border-radius: 10px;
+
+            font-size: 16px;
+            outline: none;
+        }
+
+        .campo input:focus {
+            border-color: #ffcc4d;
+        }
+
+        .botao {
+            width: 100%;
+            padding: 14px;
+
+            border: none;
+            border-radius: 10px;
+
+            background: #ff8c42;
+            color: white;
+
+            font-size: 17px;
+            font-weight: bold;
+
+            cursor: pointer;
+        }
+
+        .botao:hover {
+            background: #f47721;
+        }
+
+        .links {
+            text-align: center;
+            margin-top: 22px;
+        }
+
+        .links a {
+            color: #3498db;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .links a:hover {
+            text-decoration: underline;
+        }
+
+        footer {
+            background: #ffcc4d;
+            padding: 22px;
+            text-align: center;
+            color: #5a4300;
+        }
+
+        footer p {
+            margin: 5px;
+        }
+
+        @media (max-width: 500px) {
+
+            header h1 {
+                font-size: 27px;
+            }
+
+            .cadastro-card {
+                padding: 25px;
+            }
+
+            .cadastro-card h2 {
+                font-size: 26px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <h1>🌈 Associação Criança Feliz</h1>
+        <p>Um futuro melhor começa aqui 💛</p>
+    </header>
+
+
+    <main class="cadastro-area">
+
+        <div class="cadastro-card">
+
+            <h2>📝 Criar conta</h2>
+
+            <p class="descricao">
+                Crie sua conta gratuitamente
+            </p>
+
+
+            {% with messages = get_flashed_messages(with_categories=true) %}
+
+                {% if messages %}
+
+                    <div class="mensagens">
+
+                        {% for categoria, mensagem in messages %}
+
+                            <div class="mensagem {{ categoria }}">
+                                {{ mensagem }}
+                            </div>
+
+                        {% endfor %}
+
+                    </div>
+
+                {% endif %}
+
+            {% endwith %}
+
+
+            <form method="POST" action="{{ url_for('cadastrar') }}">
+
+                <div class="campo">
+
+                    <label for="nome">
+                        Nome
+                    </label>
+
+                    <input
+                        type="text"
+                        id="nome"
+                        name="nome"
+                        placeholder="Digite seu nome"
+                        required
+                        autocomplete="name"
+                    >
+
+                </div>
+
+
+                <div class="campo">
+
+                    <label for="email">
+                        E-mail
+                    </label>
+
+                    <input
+                        type="email"
+                        id="email"
+                        name="email"
+                        placeholder="Digite seu e-mail"
+                        required
+                        autocomplete="email"
+                    >
+
+                </div>
+
+
+                <div class="campo">
+
+                    <label for="senha">
+                        Senha
+                    </label>
+
+                    <input
+                        type="password"
+                        id="senha"
+                        name="senha"
+                        placeholder="Mínimo de 6 caracteres"
+                        minlength="6"
+                        required
+                        autocomplete="new-password"
+                    >
+
+                </div>
+
+
+                <div class="campo">
+
+                    <label for="confirmar_senha">
+                        Confirmar senha
+                    </label>
+
+                    <input
+                        type="password"
+                        id="confirmar_senha"
+                        name="confirmar_senha"
+                        placeholder="Digite a senha novamente"
+                        minlength="6"
+                        required
+                        autocomplete="new-password"
+                    >
+
+                </div>
+
+
+                <button type="submit" class="botao">
+                    Criar minha conta
+                </button>
+
+            </form>
+
+
+            <div class="links">
+
+                <p>
+                    Já tem uma conta?
+                    <a href="{{ url_for('login') }}">
+                        Entrar
+                    </a>
+                </p>
+
+                <br>
+
+                <p>
+                    <a href="{{ url_for('inicio') }}">
+                        ← Voltar para o início
+                    </a>
+                </p>
+
+            </div>
+
+        </div>
+
+    </main>
+
+
+    <footer>
+
+        <p>🌈 Associação Criança Feliz</p>
+        <p>© 2026</p>
+
+    </footer>
+
+</body>
+
+</html>
+```
