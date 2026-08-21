@@ -6,7 +6,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Login - Associação Criança Feliz</title>
+    <title>Entrar - Associação Criança Feliz</title>
 
     <style>
         * {
@@ -19,6 +19,7 @@
             min-height: 100vh;
             font-family: Arial, Helvetica, sans-serif;
             background: #fff8e7;
+            color: #333;
 
             display: flex;
             flex-direction: column;
@@ -48,33 +49,55 @@
             justify-content: center;
             align-items: center;
 
-            padding: 40px 20px;
+            padding: 45px 20px;
         }
 
         .login-card {
             width: 100%;
-            max-width: 420px;
+            max-width: 430px;
 
             background: white;
             padding: 35px;
 
             border-radius: 20px;
 
-            box-shadow:
-                0 8px 25px rgba(0, 0, 0, 0.12);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
         }
 
         .login-card h2 {
             text-align: center;
             color: #ff8c42;
+            font-size: 30px;
             margin-bottom: 10px;
-            font-size: 29px;
         }
 
-        .login-card .descricao {
+        .descricao {
             text-align: center;
             color: #666;
             margin-bottom: 30px;
+            font-size: 17px;
+        }
+
+        .mensagens {
+            margin-bottom: 20px;
+        }
+
+        .mensagem {
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 8px;
+            text-align: center;
+            font-size: 15px;
+        }
+
+        .erro {
+            background: #ffe0dc;
+            color: #b42318;
+        }
+
+        .sucesso {
+            background: #dff7e3;
+            color: #18753c;
         }
 
         .campo {
@@ -92,7 +115,7 @@
             width: 100%;
             padding: 14px;
 
-            border: 2px solid #eee;
+            border: 2px solid #e5e5e5;
             border-radius: 10px;
 
             font-size: 16px;
@@ -105,7 +128,6 @@
 
         .botao {
             width: 100%;
-
             padding: 14px;
 
             border: none;
@@ -124,32 +146,11 @@
             background: #f47721;
         }
 
-        .mensagens {
-            margin-bottom: 20px;
-        }
-
-        .mensagem {
-            padding: 12px;
-            border-radius: 8px;
-            margin-bottom: 8px;
-            text-align: center;
-        }
-
-        .erro {
-            background: #ffe0dc;
-            color: #b42318;
-        }
-
-        .sucesso {
-            background: #dff7e3;
-            color: #18753c;
-        }
-
         .voltar {
             display: block;
             text-align: center;
 
-            margin-top: 20px;
+            margin-top: 22px;
 
             color: #3498db;
             text-decoration: none;
@@ -162,9 +163,13 @@
 
         footer {
             background: #ffcc4d;
-            padding: 20px;
+            padding: 22px;
             text-align: center;
             color: #5a4300;
+        }
+
+        footer p {
+            margin: 5px;
         }
 
         @media (max-width: 500px) {
@@ -178,7 +183,7 @@
             }
 
             .login-card h2 {
-                font-size: 25px;
+                font-size: 26px;
             }
         }
     </style>
@@ -203,8 +208,6 @@
             </p>
 
 
-            <!-- Mensagens do Flask -->
-
             {% with messages = get_flashed_messages(with_categories=true) %}
 
                 {% if messages %}
@@ -226,21 +229,19 @@
             {% endwith %}
 
 
-            <!-- Formulário de login -->
-
             <form method="POST" action="{{ url_for('login') }}">
 
                 <div class="campo">
 
                     <label for="usuario">
-                        Usuário
+                        E-mail ou usuário
                     </label>
 
                     <input
                         type="text"
                         id="usuario"
                         name="usuario"
-                        placeholder="Digite seu usuário"
+                        placeholder="Digite seu e-mail ou usuário"
                         required
                         autocomplete="username"
                     >
@@ -283,8 +284,10 @@
 
 
     <footer>
+
         <p>🌈 Associação Criança Feliz</p>
         <p>© 2026</p>
+
     </footer>
 
 </body>
