@@ -14,7 +14,6 @@ app.secret_key = os.environ.get(
     "chave-temporaria-apenas-local"
 )
 
-# Banco SQLite
 BANCO = "usuarios.db"
 
 
@@ -45,13 +44,33 @@ def criar_banco():
 
 
 # ==========================================
+# E-MAILS DOS ADMINISTRADORES
+# ==========================================
+
+def emails_admin():
+
+    lista = os.environ.get(
+        "ADMIN_EMAILS",
+        ""
+    )
+
+    return [
+        email.strip().lower()
+        for email in lista.split(",")
+        if email.strip()
+    ]
+
+
+# ==========================================
 # PÁGINA INICIAL
 # ==========================================
 
 @app.route("/")
 def inicio():
 
-    return render_template("index.html")
+    return render_template(
+        "index.html"
+    )
 
 
 # ==========================================
@@ -61,12 +80,12 @@ def inicio():
 @app.route("/cadastrar", methods=["GET", "POST"])
 def cadastrar():
 
-    # Quando abrir a página pelo navegador
     if request.method == "GET":
 
-        return render_template("cadastro.html")
+        return render_template(
+            "cadastro.html"
+        )
 
-    # Receber dados do formulário
     nome = request.form.get(
         "nome",
         ""
@@ -111,7 +130,7 @@ def cadastrar():
             url_for("cadastrar")
         )
 
-    # Verificar confirmação
+    # Confirmar senha
     if senha != confirmar_senha:
 
         flash(
@@ -123,7 +142,7 @@ def cadastrar():
             url_for("cadastrar")
         )
 
-    # Transformar senha em hash
+    # Criar hash
     senha_hash = generate_password_hash(
         senha
     )
@@ -152,7 +171,6 @@ def cadastrar():
             "sucesso"
         )
 
-        # Depois do cadastro vai para o login
         return redirect(
             url_for("login")
         )
@@ -185,7 +203,7 @@ def login():
     usuario_login = request.form.get(
         "usuario",
         ""
-    ).strip()
+    ).strip().lower()
 
     senha = request.form.get(
         "senha",
@@ -193,22 +211,28 @@ def login():
     )
 
     # ======================================
-    # LOGIN DO ADMINISTRADOR
+    # VERIFICAR SE É ADMIN
     # ======================================
 
-    admin_usuario = os.environ.get(
-        "ADMIN_USUARIO"
-    )
+    lista_admins = emails_admin()
 
-    admin_senha_hash = os.environ.get(
-        "ADMIN_SENHA_HASH"
-    )
+    if usuario_login in lista_admins:
 
-    if (
-        admin_usuario
-        and admin_senha_hash
-        and usuario_login == admin_usuario
-    ):
+        admin_senha_hash = os.environ.get(
+            "ADMIN_SENHA_HASH",
+            ""
+        )
+
+        if not admin_senha_hash:
+
+            flash(
+                "A senha do administrador não foi configurada.",
+                "erro"
+            )
+
+            return redirect(
+                url_for("login")
+            )
 
         try:
 
@@ -227,9 +251,21 @@ def login():
 
             session["tipo_usuario"] = "admin"
 
+            session["admin_email"] = usuario_login
+
             return redirect(
                 url_for("admin")
             )
+
+        flash(
+            "Senha do administrador incorreta.",
+            "erro"
+        )
+
+        return redirect(
+            url_for("login")
+        )
+
 
     # ======================================
     # LOGIN DO USUÁRIO NORMAL
@@ -244,7 +280,7 @@ def login():
             WHERE email = ?
             """,
             (
-                usuario_login.lower(),
+                usuario_login,
             )
         ).fetchone()
 
@@ -277,9 +313,10 @@ def login():
                 url_for("usuario")
             )
 
+
     # Login incorreto
     flash(
-        "E-mail/usuário ou senha incorretos.",
+        "E-mail ou senha incorretos.",
         "erro"
     )
 
@@ -295,7 +332,6 @@ def login():
 @app.route("/usuario")
 def usuario():
 
-    # Verificar login
     if session.get("tipo_usuario") != "usuario":
 
         flash(
@@ -329,11 +365,11 @@ def usuario():
 @app.route("/admin")
 def admin():
 
-    # Verificar se é administrador
+    # Verificar se está logado como admin
     if session.get("tipo_usuario") != "admin":
 
         flash(
-            "Você precisa ser administrador para acessar esta área.",
+            "Acesso permitido somente para administradores.",
             "erro"
         )
 
@@ -341,7 +377,27 @@ def admin():
             url_for("login")
         )
 
-    # Buscar todos os usuários
+    # Verificar novamente se o e-mail
+    # continua autorizado
+    email_admin = session.get(
+        "admin_email",
+        ""
+    ).lower()
+
+    if email_admin not in emails_admin():
+
+        session.clear()
+
+        flash(
+            "Seu e-mail não possui acesso administrativo.",
+            "erro"
+        )
+
+        return redirect(
+            url_for("login")
+        )
+
+    # Buscar usuários cadastrados
     with conectar_banco() as conexao:
 
         usuarios = conexao.execute(
@@ -385,7 +441,7 @@ criar_banco()
 
 
 # ==========================================
-# INICIAR SERVIDOR
+# SERVIDOR
 # ==========================================
 
 if __name__ == "__main__":
