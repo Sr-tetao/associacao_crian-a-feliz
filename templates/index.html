@@ -2,31 +2,1176 @@
 <html lang="pt-BR">
 
 <head>
+
     <meta charset="UTF-8">
-    <title>Usuários</title>
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>
+        Associação Criança Feliz
+    </title>
+
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+
+        body {
+
+            font-family:
+                Arial,
+                Helvetica,
+                sans-serif;
+
+            background: #fffaf0;
+
+            color: #333;
+
+            min-height: 100vh;
+        }
+
+
+        /* ==========================
+           CABEÇALHO
+        ========================== */
+
+        header {
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #ffcc4d,
+                    #ffb347
+                );
+
+            padding: 18px 7%;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            gap: 20px;
+
+            position: sticky;
+
+            top: 0;
+
+            z-index: 1000;
+
+            box-shadow:
+                0 3px 15px
+                rgba(0, 0, 0, 0.10);
+        }
+
+
+        .logo {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 10px;
+
+            color: white;
+
+            text-decoration: none;
+        }
+
+
+        .logo-icon {
+
+            font-size: 38px;
+        }
+
+
+        .logo-text h1 {
+
+            font-size: 22px;
+        }
+
+
+        .logo-text p {
+
+            font-size: 12px;
+
+            color: #5a4300;
+
+            margin-top: 3px;
+        }
+
+
+        nav {
+
+            display: flex;
+
+            gap: 10px;
+
+            align-items: center;
+        }
+
+
+        nav a {
+
+            text-decoration: none;
+
+            font-weight: bold;
+
+            padding: 11px 18px;
+
+            border-radius: 10px;
+
+            transition: 0.2s;
+        }
+
+
+        .nav-login {
+
+            color: white;
+
+            border: 2px solid white;
+        }
+
+
+        .nav-login:hover {
+
+            background: white;
+
+            color: #f28c28;
+        }
+
+
+        .nav-cadastro {
+
+            background: white;
+
+            color: #f28c28;
+        }
+
+
+        .nav-cadastro:hover {
+
+            transform: translateY(-2px);
+
+            box-shadow:
+                0 5px 12px
+                rgba(0, 0, 0, 0.15);
+        }
+
+
+        /* ==========================
+           HERO
+        ========================== */
+
+        .hero {
+
+            min-height: 600px;
+
+            padding:
+                80px 7%;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            gap: 50px;
+
+            background:
+
+                radial-gradient(
+                    circle at 90% 20%,
+                    #ffe89a 0,
+                    transparent 30%
+                ),
+
+                radial-gradient(
+                    circle at 10% 80%,
+                    #ffd9e8 0,
+                    transparent 30%
+                ),
+
+                #fffaf0;
+        }
+
+
+        .hero-text {
+
+            max-width: 650px;
+        }
+
+
+        .tag {
+
+            display: inline-block;
+
+            background: #ffe7a3;
+
+            color: #8a6100;
+
+            padding: 8px 15px;
+
+            border-radius: 30px;
+
+            font-weight: bold;
+
+            margin-bottom: 20px;
+        }
+
+
+        .hero h2 {
+
+            font-size: 52px;
+
+            line-height: 1.1;
+
+            color: #f47721;
+
+            margin-bottom: 20px;
+        }
+
+
+        .hero h2 span {
+
+            color: #3498db;
+        }
+
+
+        .hero-text p {
+
+            font-size: 20px;
+
+            line-height: 1.7;
+
+            color: #555;
+
+            margin-bottom: 30px;
+        }
+
+
+        .hero-buttons {
+
+            display: flex;
+
+            gap: 15px;
+
+            flex-wrap: wrap;
+        }
+
+
+        .botao {
+
+            display: inline-block;
+
+            padding: 15px 25px;
+
+            border-radius: 12px;
+
+            text-decoration: none;
+
+            font-size: 17px;
+
+            font-weight: bold;
+
+            transition: 0.2s;
+        }
+
+
+        .botao-principal {
+
+            background: #ff8c42;
+
+            color: white;
+
+            box-shadow:
+                0 5px 15px
+                rgba(244, 119, 33, 0.25);
+        }
+
+
+        .botao-principal:hover {
+
+            transform: translateY(-3px);
+
+            background: #f47721;
+        }
+
+
+        .botao-secundario {
+
+            background: white;
+
+            color: #3498db;
+
+            border: 2px solid #3498db;
+        }
+
+
+        .botao-secundario:hover {
+
+            background: #3498db;
+
+            color: white;
+        }
+
+
+        /* ==========================
+           ILUSTRAÇÃO
+        ========================== */
+
+        .hero-desenho {
+
+            width: 390px;
+
+            height: 390px;
+
+            min-width: 300px;
+
+            background: white;
+
+            border-radius: 50%;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            box-shadow:
+                0 15px 40px
+                rgba(0, 0, 0, 0.10);
+
+            font-size: 150px;
+
+            animation:
+                flutuar 3s ease-in-out infinite;
+        }
+
+
+        @keyframes flutuar {
+
+            0% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-10px);
+            }
+
+            100% {
+                transform: translateY(0);
+            }
+        }
+
+
+        /* ==========================
+           SEÇÕES
+        ========================== */
+
+        .secao {
+
+            padding:
+                80px 7%;
+        }
+
+
+        .titulo-secao {
+
+            text-align: center;
+
+            margin-bottom: 45px;
+        }
+
+
+        .titulo-secao h2 {
+
+            color: #ff8c42;
+
+            font-size: 35px;
+
+            margin-bottom: 10px;
+        }
+
+
+        .titulo-secao p {
+
+            color: #666;
+
+            font-size: 18px;
+        }
+
+
+        /* ==========================
+           CARDS
+        ========================== */
+
+        .cards {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(3, 1fr);
+
+            gap: 25px;
+
+            max-width: 1100px;
+
+            margin: auto;
+        }
+
+
+        .card {
+
+            background: white;
+
+            padding: 30px;
+
+            border-radius: 20px;
+
+            text-align: center;
+
+            box-shadow:
+                0 7px 22px
+                rgba(0, 0, 0, 0.08);
+
+            transition: 0.2s;
+        }
+
+
+        .card:hover {
+
+            transform:
+                translateY(-6px);
+
+            box-shadow:
+                0 12px 28px
+                rgba(0, 0, 0, 0.12);
+        }
+
+
+        .card-icon {
+
+            font-size: 55px;
+
+            margin-bottom: 15px;
+        }
+
+
+        .card h3 {
+
+            color: #3498db;
+
+            font-size: 22px;
+
+            margin-bottom: 12px;
+        }
+
+
+        .card p {
+
+            color: #666;
+
+            line-height: 1.6;
+        }
+
+
+        /* ==========================
+           HORÁRIOS
+        ========================== */
+
+        .horarios-section {
+
+            background: #fff3d6;
+        }
+
+
+        .horarios {
+
+            max-width: 950px;
+
+            margin: auto;
+
+            display: grid;
+
+            grid-template-columns:
+                1fr 1fr;
+
+            gap: 25px;
+        }
+
+
+        .aula {
+
+            background: white;
+
+            padding: 30px;
+
+            border-radius: 20px;
+
+            box-shadow:
+                0 7px 20px
+                rgba(0, 0, 0, 0.08);
+        }
+
+
+        .aula h3 {
+
+            font-size: 24px;
+
+            margin-bottom: 15px;
+        }
+
+
+        .aula p {
+
+            font-size: 18px;
+
+            color: #555;
+        }
+
+
+        .infantil {
+
+            border-left:
+                7px solid #ffcc4d;
+        }
+
+
+        .adulto {
+
+            border-left:
+                7px solid #3498db;
+        }
+
+
+        .local {
+
+            max-width: 950px;
+
+            margin:
+                0 auto 25px;
+
+            text-align: center;
+
+            font-size: 19px;
+
+            color: #555;
+        }
+
+
+        /* ==========================
+           SOBRE
+        ========================== */
+
+        .sobre {
+
+            max-width: 950px;
+
+            margin: auto;
+
+            background: white;
+
+            padding: 40px;
+
+            border-radius: 25px;
+
+            text-align: center;
+
+            box-shadow:
+                0 7px 22px
+                rgba(0, 0, 0, 0.08);
+        }
+
+
+        .sobre h2 {
+
+            color: #3498db;
+
+            font-size: 32px;
+
+            margin-bottom: 20px;
+        }
+
+
+        .sobre p {
+
+            color: #555;
+
+            font-size: 18px;
+
+            line-height: 1.8;
+        }
+
+
+        /* ==========================
+           CHAMADA FINAL
+        ========================== */
+
+        .chamada {
+
+            text-align: center;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #ffcc4d,
+                    #ff9f43
+                );
+
+            color: white;
+
+            padding: 70px 20px;
+        }
+
+
+        .chamada h2 {
+
+            font-size: 38px;
+
+            margin-bottom: 15px;
+        }
+
+
+        .chamada p {
+
+            font-size: 19px;
+
+            margin-bottom: 25px;
+        }
+
+
+        .chamada a {
+
+            background: white;
+
+            color: #f47721;
+        }
+
+
+        /* ==========================
+           RODAPÉ
+        ========================== */
+
+        footer {
+
+            background: #5a4300;
+
+            color: white;
+
+            text-align: center;
+
+            padding: 30px 20px;
+        }
+
+
+        footer p {
+
+            margin: 6px;
+        }
+
+
+        /* ==========================
+           CELULAR
+        ========================== */
+
+        @media (max-width: 850px) {
+
+            header {
+
+                flex-direction: column;
+
+                padding: 18px 20px;
+            }
+
+
+            nav {
+
+                width: 100%;
+
+                justify-content: center;
+            }
+
+
+            .hero {
+
+                flex-direction: column;
+
+                text-align: center;
+
+                padding-top: 60px;
+            }
+
+
+            .hero-text {
+
+                max-width: 700px;
+            }
+
+
+            .hero h2 {
+
+                font-size: 40px;
+            }
+
+
+            .hero-buttons {
+
+                justify-content: center;
+            }
+
+
+            .hero-desenho {
+
+                width: 280px;
+
+                height: 280px;
+
+                font-size: 100px;
+            }
+
+
+            .cards {
+
+                grid-template-columns: 1fr;
+            }
+
+
+            .horarios {
+
+                grid-template-columns: 1fr;
+            }
+        }
+
+
+        @media (max-width: 500px) {
+
+            .logo-text h1 {
+
+                font-size: 18px;
+            }
+
+
+            .hero h2 {
+
+                font-size: 34px;
+            }
+
+
+            .hero-text p {
+
+                font-size: 17px;
+            }
+
+
+            .secao {
+
+                padding:
+                    55px 5%;
+            }
+
+
+            .titulo-secao h2 {
+
+                font-size: 29px;
+            }
+
+
+            .sobre {
+
+                padding: 25px;
+            }
+
+
+            .chamada h2 {
+
+                font-size: 30px;
+            }
+
+        }
+
+    </style>
+
 </head>
+
 
 <body>
 
-    <h1>Usuários cadastrados</h1>
 
-    {% for usuario in usuarios %}
+    <!-- ==========================
+         CABEÇALHO
+    ========================== -->
 
-        <div>
-            <h3>{{ usuario.nome }}</h3>
+    <header>
+
+        <a
+            href="{{ url_for('inicio') }}"
+            class="logo"
+        >
+
+            <span class="logo-icon">
+                🌈
+            </span>
+
+            <div class="logo-text">
+
+                <h1>
+                    Associação Criança Feliz
+                </h1>
+
+                <p>
+                    Um futuro melhor começa aqui 💛
+                </p>
+
+            </div>
+
+        </a>
+
+
+        <nav>
+
+            <a
+                href="{{ url_for('login') }}"
+                class="nav-login"
+            >
+                🔐 Entrar
+            </a>
+
+
+            <a
+                href="{{ url_for('cadastrar') }}"
+                class="nav-cadastro"
+            >
+                📝 Criar conta
+            </a>
+
+        </nav>
+
+    </header>
+
+
+    <!-- ==========================
+         PRINCIPAL
+    ========================== -->
+
+    <main>
+
+
+        <!-- HERO -->
+
+        <section class="hero">
+
+            <div class="hero-text">
+
+                <span class="tag">
+                    💛 Bem-vindo!
+                </span>
+
+
+                <h2>
+
+                    Juntos podemos
+                    <span>
+                        transformar
+                    </span>
+                    futuros.
+
+                </h2>
+
+
+                <p>
+
+                    A Associação Criança Feliz trabalha
+                    para proporcionar aprendizado,
+                    desenvolvimento e momentos especiais
+                    para crianças, jovens e adultos.
+
+                </p>
+
+
+                <div class="hero-buttons">
+
+                    <a
+                        href="{{ url_for('cadastrar') }}"
+                        class="botao botao-principal"
+                    >
+                        📝 Criar minha conta
+                    </a>
+
+
+                    <a
+                        href="{{ url_for('login') }}"
+                        class="botao botao-secundario"
+                    >
+                        🔐 Já tenho uma conta
+                    </a>
+
+                </div>
+
+            </div>
+
+
+            <div class="hero-desenho">
+
+                🧒🌈
+
+            </div>
+
+        </section>
+
+
+        <!-- SOBRE -->
+
+        <section class="secao">
+
+            <div class="sobre">
+
+                <h2>
+                    ❤️ Sobre nós
+                </h2>
+
+                <p>
+
+                    A Associação Criança Feliz busca criar
+                    oportunidades de aprendizado e
+                    convivência em um ambiente acolhedor,
+                    ajudando cada pessoa a desenvolver
+                    seus talentos e construir um futuro
+                    melhor.
+
+                </p>
+
+            </div>
+
+        </section>
+
+
+        <!-- ATIVIDADES -->
+
+        <section class="secao">
+
+            <div class="titulo-secao">
+
+                <h2>
+                    ✨ O que fazemos?
+                </h2>
+
+                <p>
+                    Atividades pensadas para diferentes idades.
+                </p>
+
+            </div>
+
+
+            <div class="cards">
+
+
+                <div class="card">
+
+                    <div class="card-icon">
+                        🧒
+                    </div>
+
+                    <h3>
+                        Crianças
+                    </h3>
+
+                    <p>
+
+                        Atividades e aulas para estimular
+                        o aprendizado, a criatividade e
+                        a convivência.
+
+                    </p>
+
+                </div>
+
+
+                <div class="card">
+
+                    <div class="card-icon">
+                        📚
+                    </div>
+
+                    <h3>
+                        Educação
+                    </h3>
+
+                    <p>
+
+                        Um espaço para aprender,
+                        compartilhar conhecimentos
+                        e desenvolver novas habilidades.
+
+                    </p>
+
+                </div>
+
+
+                <div class="card">
+
+                    <div class="card-icon">
+                        🤝
+                    </div>
+
+                    <h3>
+                        Comunidade
+                    </h3>
+
+                    <p>
+
+                        Trabalhamos para construir
+                        um ambiente de respeito,
+                        amizade e colaboração.
+
+                    </p>
+
+                </div>
+
+
+            </div>
+
+        </section>
+
+
+        <!-- HORÁRIOS -->
+
+        <section
+            class="secao horarios-section"
+            id="horarios"
+        >
+
+            <div class="titulo-secao">
+
+                <h2>
+                    📚 Horários das aulas
+                </h2>
+
+                <p>
+                    Confira os horários na Vila Gabriel.
+                </p>
+
+            </div>
+
+
+            <p class="local">
+
+                📍
+                <strong>
+                    Vila Gabriel
+                </strong>
+
+            </p>
+
+
+            <div class="horarios">
+
+
+                <div class="aula infantil">
+
+                    <h3>
+                        🧒 Aulas infantis
+                    </h3>
+
+                    <p>
+
+                        ⏰
+                        <strong>
+                            09:00 às 17:00
+                        </strong>
+
+                    </p>
+
+                </div>
+
+
+                <div class="aula adulto">
+
+                    <h3>
+                        👨 Aulas para adultos
+                    </h3>
+
+                    <p>
+
+                        ⏰
+                        <strong>
+                            16:00 às 18:00
+                        </strong>
+
+                    </p>
+
+                </div>
+
+
+            </div>
+
+        </section>
+
+
+        <!-- CHAMADA FINAL -->
+
+        <section class="chamada">
+
+            <h2>
+                🌟 Faça parte!
+            </h2>
 
             <p>
-                E-mail: {{ usuario.email }}
+
+                Crie sua conta e acompanhe
+                as informações da Associação
+                Criança Feliz.
+
             </p>
-        </div>
 
-        <hr>
 
-    {% endfor %}
+            <a
+                href="{{ url_for('cadastrar') }}"
+                class="botao"
+            >
+                📝 Criar minha conta
+            </a>
 
-    <a href="/">
-        Voltar
-    </a>
+        </section>
+
+
+    </main>
+
+
+    <!-- ==========================
+         RODAPÉ
+    ========================== -->
+
+    <footer>
+
+        <p>
+            🌈 Associação Criança Feliz
+        </p>
+
+        <p>
+            Um futuro melhor começa aqui 💛
+        </p>
+
+        <p>
+            © 2026
+        </p>
+
+    </footer>
+
 
 </body>
 
