@@ -1,11 +1,10 @@
-```html
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Área Administrativa - Associação Criança Feliz</title>
+    <title>Administração - Atletismo Sorocaba</title>
 
     <style>
         * {
@@ -16,63 +15,62 @@
 
         body {
             font-family: Arial, Helvetica, sans-serif;
-            background: #fff8e7;
-            color: #333;
+            background: #f5f5f5;
+            color: #222;
         }
 
         header {
-            background: #ffcc4d;
-            padding: 25px;
-            text-align: center;
+            background: #111;
+            color: white;
+            padding: 25px 7%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
         }
 
         header h1 {
-            color: white;
-            font-size: 32px;
+            font-size: 27px;
         }
 
         header p {
-            margin-top: 8px;
-            color: #5a4300;
+            color: #ffcc00;
+            margin-top: 5px;
+        }
+
+        .sair {
+            background: #ffcc00;
+            color: #111;
+            text-decoration: none;
+            padding: 12px 22px;
+            border-radius: 9px;
+            font-weight: bold;
         }
 
         .container {
             width: 90%;
-            max-width: 1000px;
+            max-width: 1100px;
             margin: 40px auto;
         }
 
-        .topo {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            gap: 20px;
+        .titulo {
             margin-bottom: 25px;
-            flex-wrap: wrap;
         }
 
-        .topo h2 {
-            color: #ff8c42;
+        .titulo h2 {
+            font-size: 32px;
         }
 
-        .sair {
-            background: #e74c3c;
-            color: white;
-            text-decoration: none;
-            padding: 12px 22px;
-            border-radius: 8px;
-            font-weight: bold;
-        }
-
-        .sair:hover {
-            background: #c0392b;
+        .titulo p {
+            color: #666;
+            margin-top: 7px;
         }
 
         .card {
             background: white;
-            border-radius: 15px;
+            border-radius: 18px;
             padding: 25px;
-            box-shadow: 0 5px 18px rgba(0, 0, 0, 0.10);
+            box-shadow: 0 7px 20px rgba(0,0,0,.08);
             overflow-x: auto;
         }
 
@@ -82,8 +80,8 @@
         }
 
         th {
-            background: #ffcc4d;
-            color: #5a4300;
+            background: #ffcc00;
+            color: #111;
             padding: 15px;
             text-align: left;
         }
@@ -94,30 +92,46 @@
         }
 
         tr:hover {
-            background: #fff9e8;
+            background: #fffbea;
         }
 
         .vazio {
             text-align: center;
-            padding: 30px;
+            padding: 40px;
             color: #777;
         }
 
-        footer {
-            margin-top: 50px;
-            padding: 25px;
-            text-align: center;
-            background: #ffcc4d;
-            color: #5a4300;
+        .contador {
+            display: inline-block;
+            background: #111;
+            color: #ffcc00;
+            padding: 8px 14px;
+            border-radius: 20px;
+            font-weight: bold;
+            margin-top: 12px;
         }
 
-        @media (max-width: 600px) {
-            .container {
-                width: 95%;
+        footer {
+            margin-top: 60px;
+            background: #111;
+            color: white;
+            text-align: center;
+            padding: 30px;
+        }
+
+        footer p {
+            margin: 6px;
+        }
+
+        @media (max-width: 650px) {
+
+            header {
+                flex-direction: column;
+                text-align: center;
             }
 
-            header h1 {
-                font-size: 25px;
+            .container {
+                width: 95%;
             }
 
             th,
@@ -131,70 +145,130 @@
 
 <body>
 
-    <header>
-        <h1>🌈 Associação Criança Feliz</h1>
-        <p>Painel Administrativo</p>
-    </header>
+<header>
 
-    <main class="container">
+    <div>
 
-        <div class="topo">
-            <h2>👥 Usuários cadastrados</h2>
+        <h1>
+            🏃 Atletismo Sorocaba
+        </h1>
 
-            <a href="{{ url_for('logout') }}" class="sair">
-                Sair
-            </a>
-        </div>
+        <p>
+            Painel Administrativo — Vila Gabriel
+        </p>
 
-        <div class="card">
+    </div>
 
-            {% if usuarios %}
+    <a
+        href="{{ url_for('logout') }}"
+        class="sair"
+    >
+        Sair
+    </a>
 
-                <table>
+</header>
 
-                    <thead>
+
+<main class="container">
+
+    <div class="titulo">
+
+        <h2>
+            👥 Usuários cadastrados
+        </h2>
+
+        <p>
+            Contas registradas no sistema.
+        </p>
+
+        {% if usuarios %}
+            <span class="contador">
+                {{ usuarios|length }} usuário(s)
+            </span>
+        {% endif %}
+
+    </div>
+
+
+    <div class="card">
+
+        {% if usuarios %}
+
+            <table>
+
+                <thead>
+
+                    <tr>
+                        <th>ID</th>
+                        <th>Nome</th>
+                        <th>E-mail</th>
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+                    {% for usuario in usuarios %}
+
                         <tr>
-                            <th>ID</th>
-                            <th>Nome</th>
-                            <th>E-mail</th>
+
+                            <td>
+                                {{ usuario["id"] }}
+                            </td>
+
+                            <td>
+                                {{ usuario["nome"] }}
+                            </td>
+
+                            <td>
+                                {{ usuario["email"] }}
+                            </td>
+
                         </tr>
-                    </thead>
 
-                    <tbody>
+                    {% endfor %}
 
-                        {% for usuario in usuarios %}
+                </tbody>
 
-                            <tr>
-                                <td>{{ usuario["id"] }}</td>
-                                <td>{{ usuario["nome"] }}</td>
-                                <td>{{ usuario["email"] }}</td>
-                            </tr>
+            </table>
 
-                        {% endfor %}
+        {% else %}
 
-                    </tbody>
+            <div class="vazio">
 
-                </table>
+                <h3>
+                    📭 Nenhum usuário cadastrado
+                </h3>
 
-            {% else %}
+                <p>
+                    Quando alguém criar uma conta,
+                    aparecerá aqui.
+                </p>
 
-                <div class="vazio">
-                    <h3>📭 Nenhum usuário cadastrado</h3>
-                    <p>Quando alguém realizar um cadastro, aparecerá aqui.</p>
-                </div>
+            </div>
 
-            {% endif %}
+        {% endif %}
 
-        </div>
+    </div>
 
-    </main>
+</main>
 
-    <footer>
-        <p>🌈 Associação Criança Feliz</p>
-        <p>Área administrativa</p>
-    </footer>
+
+<footer>
+
+    <p>
+        🏃 Atletismo Sorocaba - Vila Gabriel
+    </p>
+
+    <p>
+        Área administrativa
+    </p>
+
+    <p>
+        © 2026
+    </p>
+
+</footer>
 
 </body>
 </html>
-```
-
