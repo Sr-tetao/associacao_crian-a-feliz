@@ -1,12 +1,10 @@
-
 <!DOCTYPE html>
 <html lang="pt-BR">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Entrar - Associação Criança Feliz/Atletismo Vila Gabriel de Sorocaba/</title>
+    <title>Entrar - Atletismo Sorocaba</title>
 
     <style>
         * {
@@ -16,174 +14,131 @@
         }
 
         body {
-            min-height: 100vh;
             font-family: Arial, Helvetica, sans-serif;
-            background: #fff8e7;
-            color: #333;
-
+            min-height: 100vh;
+            background: linear-gradient(135deg, #111, #292929);
             display: flex;
-            flex-direction: column;
-        }
-
-        header {
-            background: #ffcc4d;
-            padding: 25px 20px;
-            text-align: center;
-        }
-
-        header h1 {
-            color: white;
-            font-size: 34px;
-        }
-
-        header p {
-            margin-top: 8px;
-            color: #5a4300;
-            font-size: 17px;
-        }
-
-        .login-area {
-            flex: 1;
-
-            display: flex;
-            justify-content: center;
             align-items: center;
-
-            padding: 45px 20px;
+            justify-content: center;
+            padding: 25px;
         }
 
-        .login-card {
+        .container {
             width: 100%;
-            max-width: 430px;
+            max-width: 450px;
+        }
 
+        .logo {
+            text-align: center;
+            color: white;
+            margin-bottom: 25px;
+        }
+
+        .logo .icone {
+            font-size: 60px;
+        }
+
+        .logo h1 {
+            font-size: 28px;
+            margin-top: 8px;
+        }
+
+        .logo p {
+            color: #ffcc00;
+            margin-top: 5px;
+        }
+
+        .card {
             background: white;
-            padding: 35px;
-
             border-radius: 20px;
-
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+            padding: 35px;
+            box-shadow: 0 15px 40px rgba(0,0,0,.35);
         }
 
-        .login-card h2 {
+        .card h2 {
             text-align: center;
-            color: #ff8c42;
-            font-size: 30px;
-            margin-bottom: 10px;
+            color: #111;
+            margin-bottom: 25px;
+            font-size: 28px;
         }
 
-        .descricao {
-            text-align: center;
-            color: #666;
-            margin-bottom: 30px;
+        label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 7px;
+            color: #333;
+        }
+
+        input {
+            width: 100%;
+            padding: 14px;
+            margin-bottom: 18px;
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            font-size: 16px;
+            outline: none;
+        }
+
+        input:focus {
+            border-color: #ffcc00;
+        }
+
+        button {
+            width: 100%;
+            padding: 15px;
+            border: none;
+            border-radius: 10px;
+            background: #ffcc00;
+            color: #111;
             font-size: 17px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #e6b800;
         }
 
         .mensagens {
-            margin-bottom: 20px;
+            margin-bottom: 18px;
         }
 
         .mensagem {
             padding: 12px;
             border-radius: 8px;
             margin-bottom: 8px;
+            background: #ffe6e6;
+            color: #a00000;
             text-align: center;
-            font-size: 15px;
         }
 
-        .erro {
-            background: #ffe0dc;
-            color: #b42318;
+        .cadastro {
+            text-align: center;
+            margin-top: 22px;
+            color: #666;
         }
 
-        .sucesso {
-            background: #dff7e3;
-            color: #18753c;
-        }
-
-        .campo {
-            margin-bottom: 20px;
-        }
-
-        .campo label {
-            display: block;
-            margin-bottom: 8px;
+        .cadastro a {
+            color: #111;
             font-weight: bold;
-            color: #444;
-        }
-
-        .campo input {
-            width: 100%;
-            padding: 14px;
-
-            border: 2px solid #e5e5e5;
-            border-radius: 10px;
-
-            font-size: 16px;
-            outline: none;
-        }
-
-        .campo input:focus {
-            border-color: #ffcc4d;
-        }
-
-        .botao {
-            width: 100%;
-            padding: 14px;
-
-            border: none;
-            border-radius: 10px;
-
-            background: #ff8c42;
-            color: white;
-
-            font-size: 17px;
-            font-weight: bold;
-
-            cursor: pointer;
-        }
-
-        .botao:hover {
-            background: #f47721;
         }
 
         .voltar {
             display: block;
             text-align: center;
-
-            margin-top: 22px;
-
-            color: #3498db;
+            margin-top: 20px;
+            color: #ffcc00;
             text-decoration: none;
             font-weight: bold;
         }
 
-        .voltar:hover {
-            text-decoration: underline;
-        }
-
-        footer {
-            background: #ffcc4d;
-            padding: 22px;
-            text-align: center;
-            color: #5a4300;
-        }
-
-        footer p {
-            margin: 5px;
-        }
-
         @media (max-width: 500px) {
-
-            header h1 {
-                font-size: 27px;
-            }
-
-            .login-card {
+            .card {
                 padding: 25px;
             }
 
-            .login-card h2 {
-                font-size: 26px;
+            .logo h1 {
+                font-size: 23px;
             }
         }
     </style>
@@ -191,106 +146,98 @@
 
 <body>
 
-    <header>
-        <h1>🌈 Associação Criança Feliz</h1>
-        <p>Um futuro melhor começa aqui 💛</p>
-    </header>
+<div class="container">
 
+    <div class="logo">
+        <div class="icone">🏃</div>
 
-    <main class="login-area">
+        <h1>
+            Atletismo Sorocaba
+        </h1>
 
-        <div class="login-card">
+        <p>
+            Vila Gabriel
+        </p>
+    </div>
 
-            <h2>🔐 Entrar</h2>
+    <div class="card">
 
-            <p class="descricao">
-                Entre na sua conta
-            </p>
+        <h2>
+            🔐 Entrar
+        </h2>
 
+        {% with mensagens = get_flashed_messages(with_categories=true) %}
 
-            {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if mensagens %}
 
-                {% if messages %}
+                <div class="mensagens">
 
-                    <div class="mensagens">
+                    {% for categoria, mensagem in mensagens %}
 
-                        {% for categoria, mensagem in messages %}
+                        <div class="mensagem">
+                            {{ mensagem }}
+                        </div>
 
-                            <div class="mensagem {{ categoria }}">
-                                {{ mensagem }}
-                            </div>
-
-                        {% endfor %}
-
-                    </div>
-
-                {% endif %}
-
-            {% endwith %}
-
-
-            <form method="POST" action="{{ url_for('login') }}">
-
-                <div class="campo">
-
-                    <label for="usuario">
-                        E-mail ou usuário
-                    </label>
-
-                    <input
-                        type="text"
-                        id="usuario"
-                        name="usuario"
-                        placeholder="Digite seu e-mail ou usuário"
-                        required
-                        autocomplete="username"
-                    >
+                    {% endfor %}
 
                 </div>
 
+            {% endif %}
 
-                <div class="campo">
+        {% endwith %}
 
-                    <label for="senha">
-                        Senha
-                    </label>
+        <form method="POST" action="{{ url_for('login') }}">
 
-                    <input
-                        type="password"
-                        id="senha"
-                        name="senha"
-                        placeholder="Digite sua senha"
-                        required
-                        autocomplete="current-password"
-                    >
+            <label for="usuario">
+                E-mail
+            </label>
 
-                </div>
+            <input
+                type="email"
+                id="usuario"
+                name="usuario"
+                placeholder="Digite seu e-mail"
+                required
+            >
 
+            <label for="senha">
+                Senha
+            </label>
 
-                <button type="submit" class="botao">
-                    Entrar
-                </button>
+            <input
+                type="password"
+                id="senha"
+                name="senha"
+                placeholder="Digite sua senha"
+                required
+            >
 
-            </form>
+            <button type="submit">
+                Entrar
+            </button>
 
+        </form>
 
-            <a href="{{ url_for('inicio') }}" class="voltar">
-                ← Voltar para o início
+        <div class="cadastro">
+
+            Ainda não tem uma conta?
+
+            <a href="{{ url_for('cadastrar') }}">
+                Criar conta
             </a>
 
         </div>
 
-    </main>
+        <a
+            href="{{ url_for('inicio') }}"
+            class="voltar"
+        >
+            ← Voltar para o início
+        </a>
 
+    </div>
 
-    <footer>
-
-        <p>🌈 Associação Criança Feliz</p>
-        <p>© 2026</p>
-
-    </footer>
+</div>
 
 </body>
-
 </html>
-
