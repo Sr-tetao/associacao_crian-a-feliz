@@ -1,12 +1,10 @@
-
 <!DOCTYPE html>
 <html lang="pt-BR">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Minha Conta - Associação Criança Feliz</title>
+    <title>Minha conta - Atletismo Sorocaba</title>
 
     <style>
         * {
@@ -17,408 +15,218 @@
 
         body {
             font-family: Arial, Helvetica, sans-serif;
-            background: #fff8e7;
-            color: #333;
-            min-height: 100vh;
-
-            display: flex;
-            flex-direction: column;
+            background: #f5f5f5;
+            color: #222;
         }
 
         header {
-            background: #ffcc4d;
-            padding: 25px 20px;
-            text-align: center;
+            background: #111;
+            color: white;
+            padding: 25px 7%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
         }
 
         header h1 {
-            color: white;
-            font-size: 32px;
+            font-size: 26px;
         }
 
         header p {
-            color: #5a4300;
-            margin-top: 8px;
+            color: #ffcc00;
+            margin-top: 5px;
         }
 
-        main {
-            flex: 1;
+        .sair {
+            background: #ffcc00;
+            color: #111;
+            text-decoration: none;
+            padding: 12px 20px;
+            border-radius: 9px;
+            font-weight: bold;
+        }
+
+        .container {
             width: 90%;
-            max-width: 900px;
+            max-width: 1000px;
             margin: 40px auto;
         }
 
-        /* ==========================
-           BOAS-VINDAS
-        ========================== */
-
         .boas-vindas {
-            background: white;
+            background: #ffcc00;
             padding: 35px;
             border-radius: 20px;
-            text-align: center;
-
-            box-shadow: 0 5px 18px rgba(0, 0, 0, 0.10);
-
             margin-bottom: 25px;
         }
 
         .boas-vindas h2 {
-            color: #ff8c42;
-            font-size: 30px;
-            margin-bottom: 15px;
+            font-size: 32px;
+            margin-bottom: 10px;
         }
 
         .boas-vindas p {
             font-size: 18px;
-            line-height: 1.6;
         }
 
-        /* ==========================
-           DADOS DO USUÁRIO
-        ========================== */
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 25px;
+        }
 
-        .dados {
+        .card {
             background: white;
             padding: 30px;
-            border-radius: 20px;
-
-            box-shadow: 0 5px 18px rgba(0, 0, 0, 0.10);
-
-            margin-bottom: 25px;
+            border-radius: 18px;
+            box-shadow: 0 7px 20px rgba(0,0,0,.08);
         }
 
-        .dados h3 {
-            color: #3498db;
-            margin-bottom: 20px;
-            font-size: 24px;
+        .card h3 {
+            font-size: 23px;
+            margin-bottom: 15px;
         }
 
-        .informacao {
-            padding: 15px;
-            margin-bottom: 12px;
-
-            background: #f7f7f7;
-
-            border-radius: 10px;
-        }
-
-        .informacao strong {
-            color: #555;
-        }
-
-        /* ==========================
-           HORÁRIOS
-        ========================== */
-
-        .horarios {
-            background: white;
-            padding: 30px;
-
-            border-radius: 20px;
-
-            box-shadow: 0 5px 18px rgba(0, 0, 0, 0.10);
-
-            margin-bottom: 25px;
-        }
-
-        .horarios h3 {
-            color: #ff8c42;
-            font-size: 26px;
-            margin-bottom: 10px;
-        }
-
-        .local {
+        .card p {
             color: #666;
-            font-size: 17px;
-            margin-bottom: 20px;
+            line-height: 1.7;
         }
 
-        .aula {
-            padding: 20px;
-            border-radius: 12px;
-            margin-top: 15px;
+        .horario {
+            border-left: 6px solid #ffcc00;
         }
 
-        .aula h4 {
-            font-size: 21px;
-            margin-bottom: 10px;
+        .perfil {
+            border-left: 6px solid #222;
         }
-
-        .aula p {
-            font-size: 17px;
-        }
-
-        .infantil {
-            background: #fff3cd;
-        }
-
-        .adulto {
-            background: #e3f2fd;
-        }
-
-        /* ==========================
-           BOTÕES
-        ========================== */
-
-        .botoes {
-            display: flex;
-            justify-content: center;
-
-            gap: 15px;
-
-            flex-wrap: wrap;
-
-            margin-top: 25px;
-        }
-
-        .botao {
-            display: inline-block;
-
-            padding: 13px 25px;
-
-            border-radius: 10px;
-
-            text-decoration: none;
-
-            font-weight: bold;
-        }
-
-        .inicio {
-            background: #3498db;
-            color: white;
-        }
-
-        .sair {
-            background: #e74c3c;
-            color: white;
-        }
-
-        .inicio:hover {
-            background: #2980b9;
-        }
-
-        .sair:hover {
-            background: #c0392b;
-        }
-
-        /* ==========================
-           RODAPÉ
-        ========================== */
 
         footer {
-            background: #ffcc4d;
-            padding: 25px;
-
+            margin-top: 60px;
+            background: #111;
+            color: white;
             text-align: center;
-
-            color: #5a4300;
+            padding: 30px;
         }
 
         footer p {
-            margin: 5px;
+            margin: 6px;
         }
 
-        /* ==========================
-           CELULAR
-        ========================== */
-
-        @media (max-width: 600px) {
-
-            header h1 {
-                font-size: 27px;
+        @media (max-width: 700px) {
+            header {
+                flex-direction: column;
+                text-align: center;
             }
 
-            main {
-                width: 95%;
-            }
-
-            .boas-vindas,
-            .dados,
-            .horarios {
-                padding: 25px;
+            .cards {
+                grid-template-columns: 1fr;
             }
 
             .boas-vindas h2 {
-                font-size: 25px;
-            }
-
-            .horarios h3 {
-                font-size: 23px;
-            }
-
-            .aula h4 {
-                font-size: 19px;
+                font-size: 26px;
             }
         }
     </style>
-
 </head>
 
 <body>
 
-    <!-- ==========================
-         CABEÇALHO
-    ========================== -->
+<header>
 
-    <header>
-
+    <div>
         <h1>
-            🌈 Associação Criança Feliz
+            🏃 Atletismo Sorocaba
         </h1>
 
         <p>
-            Área do usuário
+            Vila Gabriel
+        </p>
+    </div>
+
+    <a
+        href="{{ url_for('logout') }}"
+        class="sair"
+    >
+        Sair
+    </a>
+
+</header>
+
+
+<main class="container">
+
+    <section class="boas-vindas">
+
+        <h2>
+            Olá, {{ nome }}! 👋
+        </h2>
+
+        <p>
+            Bem-vindo à área do atleta.
         </p>
 
-    </header>
+    </section>
 
 
-    <!-- ==========================
-         CONTEÚDO
-    ========================== -->
+    <section class="cards">
 
-    <main>
+        <div class="card perfil">
 
-
-        <!-- BOAS-VINDAS -->
-
-        <section class="boas-vindas">
-
-            <h2>
-                Olá, {{ nome }}! 👋
-            </h2>
+            <h3>
+                👤 Minha conta
+            </h3>
 
             <p>
-                Seja bem-vindo à sua conta da
-                <strong>Associação Criança Feliz</strong>.
-            </p>
-
-        </section>
-
-
-        <!-- DADOS -->
-
-        <section class="dados">
-
-            <h3>
-                👤 Seus dados
-            </h3>
-
-
-            <div class="informacao">
-
-                <strong>
-                    Nome:
-                </strong>
-
+                <strong>Nome:</strong>
                 {{ nome }}
-
-            </div>
-
-
-            <div class="informacao">
-
-                <strong>
-                    E-mail:
-                </strong>
-
-                {{ email }}
-
-            </div>
-
-        </section>
-
-
-        <!-- HORÁRIOS -->
-
-        <section class="horarios">
-
-            <h3>
-                📚 Horários das aulas
-            </h3>
-
-            <p class="local">
-                📍 <strong>Local:</strong> Vila Gabriel
             </p>
 
-
-            <!-- AULA INFANTIL -->
-
-            <div class="aula infantil">
-
-                <h4>
-                    🧒 Aulas infantis
-                </h4>
-
-                <p>
-                    <strong>Horário:</strong>
-                    09:00 às 17:00
-                </p>
-
-            </div>
-
-
-            <!-- AULA ADULTO -->
-
-            <div class="aula adulto">
-
-                <h4>
-                    👨 Aulas para adultos
-                </h4>
-
-                <p>
-                    <strong>Horário:</strong>
-                    16:00 às 18:00
-                </p>
-
-            </div>
-
-        </section>
-
-
-        <!-- BOTÕES -->
-
-        <div class="botoes">
-
-            <a
-                href="{{ url_for('inicio') }}"
-                class="botao inicio"
-            >
-                🏠 Página inicial
-            </a>
-
-
-            <a
-                href="{{ url_for('logout') }}"
-                class="botao sair"
-            >
-                🚪 Sair
-            </a>
+            <p>
+                <strong>E-mail:</strong>
+                {{ email }}
+            </p>
 
         </div>
 
 
-    </main>
+        <div class="card horario">
+
+            <h3>
+                📅 Horários
+            </h3>
+
+            <p>
+                🧒 <strong>Infantil:</strong>
+                09:00 às 17:00
+            </p>
+
+            <p>
+                🏃 <strong>Adulto:</strong>
+                16:00 às 18:00
+            </p>
+
+            <p>
+                📍 Vila Gabriel - Sorocaba
+            </p>
+
+        </div>
+
+    </section>
+
+</main>
 
 
-    <!-- ==========================
-         RODAPÉ
-    ========================== -->
+<footer>
 
-    <footer>
+    <p>
+        🏃 Atletismo Sorocaba - Vila Gabriel
+    </p>
 
-        <p>
-            🌈 Associação Criança Feliz
-        </p>
+    <p>
+        © 2026
+    </p>
 
-        <p>
-            © 2026
-        </p>
-
-    </footer>
+</footer>
 
 </body>
-
 </html>
-
